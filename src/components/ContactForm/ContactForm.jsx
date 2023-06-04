@@ -1,19 +1,21 @@
 import { Component } from 'react';
 import css from './ContactForm.module.css';
 import PropTypes from 'prop-types';
-
+// компонент форми для додавання нового контакту
 export class ContactForm extends Component {
   state = {
     name: '',
     number: '',
   };
-
+  // очищення полів форми
   resetForm = () => {
     this.setState({ name: '', number: '' });
   };
-
+  // змінf значення полей вводу
   onChangeInput = evt => {
+    // розпаковка значення name та value з об'єкту події
     const { name, value } = evt.currentTarget;
+    // встановлення значення в стейт
     this.setState({ [name]: value });
   };
 
@@ -22,9 +24,11 @@ export class ContactForm extends Component {
       <>
         <form
           className={css.formstyle}
+          // збереження даних форми в стейт
           onSubmit={evt => {
+            // відміна перезавантаження сторінки
             evt.preventDefault();
-
+            // додавання нового контакту в стейт
             this.props.addContact(this.state);
             this.resetForm();
           }}
@@ -35,8 +39,8 @@ export class ContactForm extends Component {
             <input
               id="nameInput"
               className={css.input}
-              onChange={this.onChangeInput}
-              value={this.state.name}
+              onChange={this.onChangeInput} // метод для зміни значення полів вводу
+              value={this.state.name} // встановлення поточного значення поля введення, яке зберігається в стані компоненту
               type="text"
               name="name"
               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
